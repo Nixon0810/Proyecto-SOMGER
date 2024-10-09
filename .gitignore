@@ -1,0 +1,3 @@
+# Ignorar archivos de bases de datos de SQL Server
+*.mdf
+*.ldf
