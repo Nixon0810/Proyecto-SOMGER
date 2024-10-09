@@ -1,0 +1,10 @@
+USE SCOMGER
+GO
+CREATE PROCEDURE USP_DimEmpleado_SEL
+AS
+BEGIN
+SET NOCOUNT OFF
+    SELECT IdEmpleado, Descripcion
+    FROM DimEmpleado WITH (NOLOCK) ;
+END
+GO
