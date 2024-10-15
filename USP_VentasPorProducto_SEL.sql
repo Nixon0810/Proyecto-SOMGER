@@ -4,14 +4,14 @@ CREATE PROCEDURE USP_VentasPorProducto_SEL
     @MesInicio int,
     @MesFin int,
     @Ano int,
-    @IdSucursal varchar(3) = NULL,  -- Parámetro opcional
-    @IdEmpleado varchar(3) = NULL,  -- Parámetro opcional
-    @IdLinea varchar(5) = NULL      -- Parámetro opcional
+    @IdSucursal varchar(3) = NULL,  
+    @IdEmpleado varchar(3) = NULL,  
+    @IdLinea varchar(5) = NULL  
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT D.IdProducto, DP.Descripcion,SUM(D.SubTotal) AS TotalSubTotal
+    SELECT D.IdProducto, DP.Descripcion, SUM(D.CantidadVendida) AS TotalCantidadVendida, SUM(D.SubTotal) AS TotalSubTotal
     FROM Datos D
     INNER JOIN DimProducto DP ON D.IdProducto = DP.IdProducto
     INNER JOIN DimTiempo DT ON D.IdTiempo = DT.IdTiempo
