@@ -1,0 +1,6 @@
+UPDATE AgroJJ.dbo.Almacen SET Descripcion ='JUANJUI' WHERE CodAlmacen='006'
+UPDATE AgroMor.dbo.Almacen SET Descripcion ='MORALES TIENDA' WHERE CodAlmacen='001'
+UPDATE AgroMor.dbo.Almacen SET Descripcion ='MORALES ALMACEN' WHERE CodAlmacen='002'
+UPDATE AgroTpp.dbo.Almacen SET Descripcion ='TARAPOTO' WHERE CodAlmacen='003'
+UPDATE AgroVia.dbo.Almacen SET Descripcion ='PLANTA' WHERE CodAlmacen='004'
+UPDATE AgroNvVia.dbo.Almacen SET Descripcion ='NUEVA VIA' WHERE CodAlmacen='005'
