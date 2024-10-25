@@ -8,17 +8,17 @@ GO
 CREATE PROCEDURE USP_VentasPorSucursal_SEL
     @FechaInicio DATE,
     @FechaFin DATE,
-    @IdSucursal INT = NULL -- Parámetro opcional para filtrar por sucursal
+    @IdSucursal INT = NULL  
 AS
 BEGIN
     SET NOCOUNT ON;
     SET DATEFORMAT DMY;
     
-    DECLARE @IdTiempoInicio VARCHAR(10), @IdTiempoFin VARCHAR(10)
-    SET @IdTiempoInicio = dbo.FnFormatoDimTiempo(@FechaInicio)
-    SET @IdTiempoFin = dbo.FnFormatoDimTiempo(@FechaFin)
+    DECLARE @IdTiempoInicio VARCHAR(10), @IdTiempoFin VARCHAR(10);
+    SET @IdTiempoInicio = dbo.FnFormatoDimTiempo(@FechaInicio);
+    SET @IdTiempoFin = dbo.FnFormatoDimTiempo(@FechaFin);
 
-    -- Si @IdSucursal es NULL, no aplicamos el filtro, si no, filtramos por la sucursal indicada
+    
     SELECT DS.Descripcion AS 'x', 
            SUM(D.SubTotal) AS 'y',
            DS.Descripcion + ' ' + CAST(SUM(D.SubTotal) AS VARCHAR(20)) AS 'Text'
@@ -26,7 +26,7 @@ BEGIN
          INNER JOIN DimSucursal DS ON D.IdSucursal = DS.IdSucursal
          INNER JOIN DimTiempo DT ON D.IdTiempo = DT.IdTiempo
     WHERE (CAST(D.IdTiempo AS INT) BETWEEN CAST(@IdTiempoInicio AS INT) AND CAST(@IdTiempoFin AS INT))
-      AND (@IdSucursal IS NULL OR D.IdSucursal = @IdSucursal) -- Condicional para filtrar por sucursal
-    GROUP BY DS.Descripcion
+      AND (@IdSucursal IS NULL OR D.IdSucursal = @IdSucursal)  
+    GROUP BY DS.Descripcion;
 END
 GO
