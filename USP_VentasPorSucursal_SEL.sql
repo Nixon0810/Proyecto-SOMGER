@@ -7,8 +7,7 @@ GO
 
 CREATE PROCEDURE USP_VentasPorSucursal_SEL
     @FechaInicio DATE,
-    @FechaFin DATE,
-    @IdSucursal INT = NULL  
+    @FechaFin DATE
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -19,14 +18,14 @@ BEGIN
     SET @IdTiempoFin = dbo.FnFormatoDimTiempo(@FechaFin);
 
     
-    SELECT DS.Descripcion AS 'x', 
+    SELECT D.IdSucursal AS 'Id',
+			DS.Descripcion AS 'x', 
            SUM(D.SubTotal) AS 'y',
            DS.Descripcion + ' ' + CAST(SUM(D.SubTotal) AS VARCHAR(20)) AS 'Text'
     FROM Datos D
          INNER JOIN DimSucursal DS ON D.IdSucursal = DS.IdSucursal
          INNER JOIN DimTiempo DT ON D.IdTiempo = DT.IdTiempo
     WHERE (CAST(D.IdTiempo AS INT) BETWEEN CAST(@IdTiempoInicio AS INT) AND CAST(@IdTiempoFin AS INT))
-      AND (@IdSucursal IS NULL OR D.IdSucursal = @IdSucursal)  
-    GROUP BY DS.Descripcion;
+    GROUP BY  D.IdSucursal,DS.Descripcion;
 END
 GO

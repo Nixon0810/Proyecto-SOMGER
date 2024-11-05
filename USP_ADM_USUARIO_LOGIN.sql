@@ -6,8 +6,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[USP_AD
 GO
 
 CREATE PROCEDURE USP_ADM_USUARIO_LOGIN
-    @IdUsuario VARCHAR(20),
-    @Contrasena VARCHAR(100)
+    @IdUsuario VARCHAR(20)
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -32,7 +31,12 @@ BEGIN
         RETURN -2; -- Usuario no activo
     END
 
-    -- Devuelve el hash de la contraseña para que pueda ser verificado en el código C#
-    SELECT @ContrasenaHash AS ContrasenaHash;
+    -- Devuelve el IdUsuario, Estado y ContrasenaHash para que puedan ser utilizados en el código C#
+    SELECT 
+        IdUsuario,
+        @Estado AS Estado,
+        @ContrasenaHash AS ContrasenaHash
+    FROM Usuarios
+    WHERE IdUsuario = @IdUsuario;
 END;
 GO
