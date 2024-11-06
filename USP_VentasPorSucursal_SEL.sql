@@ -21,7 +21,7 @@ BEGIN
     SELECT D.IdSucursal AS 'Id',
 			DS.Descripcion AS 'x', 
            SUM(D.SubTotal) AS 'y',
-           DS.Descripcion + ' ' + CAST(SUM(D.SubTotal) AS VARCHAR(20)) AS 'Text'
+           DS.Descripcion + ': ' + CAST(SUM(D.SubTotal) AS VARCHAR(20)) AS 'Text'
     FROM Datos D
          INNER JOIN DimSucursal DS ON D.IdSucursal = DS.IdSucursal
          INNER JOIN DimTiempo DT ON D.IdTiempo = DT.IdTiempo
