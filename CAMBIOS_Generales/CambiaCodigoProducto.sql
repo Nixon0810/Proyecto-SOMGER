@@ -1,3 +1,4 @@
+USE EspecialTpp
 /*  SCRIPT CAMBIA CODIGO DE PRODUCTO X OTRO
   (OJO: No tiene que Existir el Producto nuevo)
 */
@@ -6,8 +7,8 @@ DECLARE @CONTROL INT=1
 DECLARE @CodProductoActual AS Varchar(8)
 DECLARE @CodProductoNuevo AS Varchar(8)
 
-SET @CodProductoActual='T0000454'
-SET @CodProductoNuevo ='00000941'
+SET @CodProductoActual='00000013'
+SET @CodProductoNuevo ='00001623'
 PRINT 'Cambiando Codigo: Actual->'+@CodProductoActual+' Nuevo:'+@CodProductoNuevo
 
 INICAR_PROCESO:
@@ -71,6 +72,9 @@ BEGIN TRY
 		UPDATE DetalleTomaInventario SET CodProducto =@CodProductoNuevo
 		WHERE CodProducto = @CodProductoActual
 
+		UPDATE DetalleRequerimientoAlmacen SET CodProducto =@CodProductoNuevo
+		WHERE CodProducto = @CodProductoActual
+		
 		UPDATE StockMensual SET CodProducto =@CodProductoNuevo
 		WHERE CodProducto = @CodProductoActual
 
