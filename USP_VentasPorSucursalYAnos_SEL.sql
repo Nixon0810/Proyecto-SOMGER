@@ -1,4 +1,4 @@
-USE SCOMGER
+USE [SCOMGER]
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[USP_VentasPorSucursalYAnos_SEL]') AND type in (N'P', N'PC'))
@@ -6,7 +6,8 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[USP_Ve
 GO
 
 CREATE PROCEDURE USP_VentasPorSucursalYAnos_SEL
-    @IdSucursal varchar(3)=NULL  -- Parámetro opcional
+    @IdSucursal varchar(3)=NULL,-- Parámetro opcional
+    @Anos int  = 10
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -14,7 +15,7 @@ BEGIN
      
     DECLARE @IdTiempoInicio VARCHAR(10), @IdTiempoFin VARCHAR(10);
     SET @IdTiempoFin = dbo.FnFormatoDimTiempo(GETDATE());
-    SET @IdTiempoInicio = dbo.FnFormatoDimTiempo(DATEADD(YEAR,-10,GETDATE()));
+    SET @IdTiempoInicio = dbo.FnFormatoDimTiempo(DATEADD(YEAR,@Anos*(-1),GETDATE()));
     PRINT @IdTiempoFin
     PRINT @IdTiempoInicio
     SELECT DT.Ano AS 'xname',
@@ -27,6 +28,10 @@ BEGIN
 		INNER JOIN DimTiempo DT ON D.IdTiempo = DT.IdTiempo
     WHERE (D.IdSucursal = @IdSucursal OR @IdSucursal IS NULL) AND 
 		  CAST(D.IdTiempo AS INT) BETWEEN CAST(@IdTiempoInicio AS INT) AND CAST(@IdTiempoFin AS INT)
-    GROUP BY DT.Ano, D.IdSucursal,DS.Descripcion;
+    GROUP BY DT.Ano, D.IdSucursal,DS.Descripcion
+    ORDER BY DT.Ano, D.IdSucursal,DS.Descripcion
 END
+
 GO
+
+
