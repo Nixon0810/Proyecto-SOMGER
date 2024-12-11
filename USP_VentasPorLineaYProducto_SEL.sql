@@ -20,6 +20,7 @@ BEGIN
     SET @IdTiempoFin = dbo.FnFormatoDimTiempo(@FechaFin);
 
     SELECT 
+        DP.IdProducto,
         DP.Descripcion AS Producto,
         SUM(D.CantidadVendida) AS Cantidad,
         CASE 
@@ -33,8 +34,8 @@ BEGIN
     WHERE (D.IdSucursal = @IdSucursal OR @IdSucursal IS NULL)  -- Filtra por sucursal, si se proporciona
       AND (D.IdLinea = @IdLinea OR @IdLinea IS NULL)           -- Filtra por línea, si se proporciona
       AND (CAST(D.IdTiempo AS INT) BETWEEN CAST(@IdTiempoInicio AS INT) AND CAST(@IdTiempoFin AS INT))  -- Filtra por fechas
-    GROUP BY DP.Descripcion  -- Agrupa por producto
-    ORDER BY DP.Descripcion;  -- Ordena por producto
+    GROUP BY DP.IdProducto,DP.Descripcion  
+    ORDER BY DP.Descripcion; 
 END
 
 GO
