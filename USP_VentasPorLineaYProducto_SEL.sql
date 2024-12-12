@@ -35,7 +35,7 @@ BEGIN
       AND (D.IdLinea = @IdLinea OR @IdLinea IS NULL)           -- Filtra por línea, si se proporciona
       AND (CAST(D.IdTiempo AS INT) BETWEEN CAST(@IdTiempoInicio AS INT) AND CAST(@IdTiempoFin AS INT))  -- Filtra por fechas
     GROUP BY DP.IdProducto,DP.Descripcion  
-    ORDER BY DP.Descripcion; 
+    ORDER BY DP.IdProducto,DP.Descripcion; 
 END
 
 GO

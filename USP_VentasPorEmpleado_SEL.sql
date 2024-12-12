@@ -26,6 +26,6 @@ BEGIN
     INNER JOIN DimTiempo DT ON D.IdTiempo = DT.IdTiempo
     WHERE (D.IdSucursal = @IdSucursal OR @IdSucursal IS NULL)
       AND (CAST(D.IdTiempo AS INT) BETWEEN CAST(@IdTiempoInicio AS INT) AND CAST(@IdTiempoFin AS INT))
-    GROUP BY DE.Descripcion;
+    GROUP BY DE.IdEmpleado, DE.Descripcion;
 END
 GO

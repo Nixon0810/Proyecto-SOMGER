@@ -30,6 +30,6 @@ BEGIN
       AND (D.IdEmpleado = @IdEmpleado OR @IdEmpleado IS NULL)
       AND (D.IdLinea = @IdLinea OR @IdLinea IS NULL)
       AND (CAST(D.IdTiempo AS INT) BETWEEN CAST(@IdTiempoInicio AS INT) AND CAST(@IdTiempoFin AS INT))
-    GROUP BY DP.Descripcion;
+    GROUP BY DP.IdProducto,DP.Descripcion;
 END
 GO

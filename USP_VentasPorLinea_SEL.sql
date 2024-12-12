@@ -28,6 +28,6 @@ BEGIN
     WHERE (D.IdSucursal = @IdSucursal OR @IdSucursal IS NULL)
       AND (D.IdEmpleado = @IdEmpleado OR @IdEmpleado IS NULL)
       AND (CAST(D.IdTiempo AS INT) BETWEEN CAST(@IdTiempoInicio AS INT) AND CAST(@IdTiempoFin AS INT))
-    GROUP BY DL.Descripcion;
+    GROUP BY DL.IdLinea,DL.Descripcion;
 END
 GO
